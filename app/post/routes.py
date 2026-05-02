@@ -1,5 +1,5 @@
 from enum import StrEnum
-from fastapi import HTTPException, APIRouter, Request, Query
+from fastapi import HTTPException, APIRouter, Request
 
 
 class UnauthHTTPException(HTTPException):
@@ -20,14 +20,14 @@ def get_post(post_id: int):
     return {"id": post_id}
 
 
-@router.get("/")
-def get_posts(
-    limit: int = 10,
-    offset: int = Query(0, ge=0),
-    tags: list[str] = Query([]),
-    order: SortOrder = SortOrder.asc,
-):
-    return {"limit": limit, "offset": offset, "tags": tags, "order": order}
+@router.put("/{post_id}")
+def put_post(post_id: int):
+    return {f"update post {post_id}": "success"}
+
+
+@router.delete("/{post_id}")
+def delete_post(post_id: int):
+    return {f"delete post {post_id}": "success"}
 
 
 @router.post("/")

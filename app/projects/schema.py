@@ -6,6 +6,16 @@ class ProjectPath(BaseModel):
     project_id: int = Field(gt=0)
 
 
+class ProjectGetResponse(BaseModel):
+    id: int
+    project_id: int
+
+
+class ProjectDeleteResponse(BaseModel):
+    id: int
+    project_id: int
+
+
 class ProjectUpdateRequest(BaseModel):
     name: str | None = None
     description: str | None = None

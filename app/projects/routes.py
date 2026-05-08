@@ -2,6 +2,8 @@ from fastapi import APIRouter, Depends
 from .schema import (
     ProjectCreateRequest,
     ProjectCreateResponse,
+    ProjectDeleteResponse,
+    ProjectGetResponse,
     ProjectPath,
     ProjectUpdateResponse,
     ProjectUpdateRequest,
@@ -11,9 +13,14 @@ from .schema import (
 router = APIRouter(prefix="/projects")
 
 
-@router.get("/{project_id}")
+@router.get("/{project_id}", response_model=ProjectGetResponse)
 def get_project(path: ProjectPath = Depends()):
-    return {"id": path.project_id}
+    return ProjectGetResponse(id=1, project_id=path.project_id)
+
+
+@router.delete("/{project_id}", response_model=ProjectDeleteResponse)
+def delete_project(path: ProjectPath = Depends()):
+    return ProjectDeleteResponse(id=1, project_id=path.project_id)
 
 
 @router.patch("/{project_id}", response_model=ProjectUpdateResponse)

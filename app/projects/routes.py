@@ -1,5 +1,7 @@
 from http import HTTPStatus
 from fastapi import APIRouter, Depends
+
+from .service import ProjectServiceDeps
 from .schema import (
     ProjectCreateRequest,
     ProjectCreateResponse,
@@ -22,8 +24,12 @@ router = APIRouter(prefix="/v1/projects", tags=["Projects"])
     Получаем проект по его ID
     """,
 )
-def get_project(path: ProjectPath = Depends()):
-    return ProjectGetResponse(id=1, project_id=path.project_id)
+def get_project(
+    service: ProjectServiceDeps,
+    path: ProjectPath = Depends(),
+):
+    res = service.get_project(path.project_id)
+    return ProjectGetResponse(id=res)
 
 
 @router.delete(

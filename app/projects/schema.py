@@ -8,7 +8,6 @@ class ProjectPath(BaseModel):
 
 class ProjectGetResponse(BaseModel):
     id: int
-    project_id: int
 
 
 class ProjectDeleteResponse(BaseModel):

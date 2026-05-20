@@ -19,4 +19,6 @@ def get_task(
 ):
     res = service.get(path.task_id)
     print(settings.db.url)
+    print(settings.auth.jwt_secret)
+    print(settings.time_post.minimal_post_debounce_time)
     return TaskGetResponse(id=res)

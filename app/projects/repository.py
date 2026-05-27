@@ -9,6 +9,8 @@ def get_project_repository():
 
 class ProjectRepository:
     def get_by_id(self, project_id: int):
+        if project_id > 100:
+            raise ValueError("Больше 100")
         return project_id
 
 

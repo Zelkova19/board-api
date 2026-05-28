@@ -1,5 +1,6 @@
 from http import HTTPStatus
-from fastapi import APIRouter, Depends
+import logging
+from fastapi import APIRouter, Depends, HTTPException
 
 from .service import ProjectServiceDeps
 from .schema import (
@@ -14,6 +15,7 @@ from .schema import (
 
 
 router = APIRouter(prefix="/v1/projects", tags=["Projects"])
+logger = logging.getLogger(__name__)
 
 
 @router.get(
@@ -29,6 +31,9 @@ def get_project(
     path: ProjectPath = Depends(),
 ):
     res = service.get_project(path.project_id)
+    if not res:
+        raise HTTPException(404, "Не найдено")
+    logger.info("ID: %s", res, extra={"user_id": 1})
     return ProjectGetResponse(id=res)
 
 
